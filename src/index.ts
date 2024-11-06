@@ -1,7 +1,7 @@
-import { intro,outro,text } from "@clack/prompts";
+import { intro,outro } from "@clack/prompts";
 import { program } from "commander";
-import { exec } from "child_process";
 
+import  { execa } from "execa"
 
 intro("Welcome to aicli!!!")
 
@@ -12,18 +12,9 @@ program
 
 program.command('message')
     .description("to view the all the changes in the project")
-    .action(() =>{
-       exec('git status',(error,stdout, stderr) =>{
-            if (error) {
-                console.error(`Error: ${error.message}`);
-                return;
-              }
-              if (stderr) {
-                console.error(`Stderr: ${stderr}`);
-                return;
-              }
-              console.log(`Output: ${stdout}`);
-        })
+    .action(async() =>{
+      const  { stdout } = await execa('git',['diff']);
+      console.log(stdout)
     })
 program.parse();
 
