@@ -1,31 +1,31 @@
 import { intro,outro,text } from "@clack/prompts";
-import { cli } from "cleye";
+import { program } from "commander";
+import { exec } from "child_process";
 
 
-intro('Welcome to autoCommit');
+intro("Welcome to aicli!!!")
 
-const args = cli({
-    name : "greet.js",
-    parameters : [
-        '<first name>',
-        '[last_name]'
-    ],
+program
+    .option('--first')
+    .option('-s,--seperator  <char>');
 
-    flags : {
-        time : {
-            type : String,
-            description : "Time of day to greet (morning or evening)",
-            default : "morning"
-        }
-    }
-})
 
-const name  = [args._.firstName,args._.lastName].filter(Boolean).join(" ")
+program.command('message')
+    .description("to view the all the changes in the project")
+    .action(() =>{
+       exec('git status',(error,stdout, stderr) =>{
+            if (error) {
+                console.error(`Error: ${error.message}`);
+                return;
+              }
+              if (stderr) {
+                console.error(`Stderr: ${stderr}`);
+                return;
+              }
+              console.log(`Output: ${stdout}`);
+        })
+    })
+program.parse();
 
-if (args.flags.time === 'morning') {
-    console.log(`Good morning ${name}!`)
-} else {
-    console.log(`Good evening ${name}!`)
-}
 
-outro('to are all set')
+outro('you are all set')

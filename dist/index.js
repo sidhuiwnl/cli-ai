@@ -1,27 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const prompts_1 = require("@clack/prompts");
-const cleye_1 = require("cleye");
-(0, prompts_1.intro)('Welcome to autoCommit');
-const args = (0, cleye_1.cli)({
-    name: "greet.js",
-    parameters: [
-        '<first name>',
-        '[last_name]'
-    ],
-    flags: {
-        time: {
-            type: String,
-            description: "Time of day to greet (morning or evening)",
-            default: "morning"
+const commander_1 = require("commander");
+const child_process_1 = require("child_process");
+(0, prompts_1.intro)("Welcome to aicli!!!");
+commander_1.program
+    .option('--first')
+    .option('-s,--seperator  <char>');
+commander_1.program.command('message')
+    .description("to view the all the changes in the project")
+    .action(() => {
+    (0, child_process_1.exec)('git status', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error: ${error.message}`);
+            return;
         }
-    }
+        if (stderr) {
+            console.error(`Stderr: ${stderr}`);
+            return;
+        }
+        console.log(`Output: ${stdout}`);
+    });
 });
-const name = [args._.firstName, args._.lastName].filter(Boolean).join(" ");
-if (args.flags.time === 'morning') {
-    console.log(`Good morning ${name}!`);
-}
-else {
-    console.log(`Good evening ${name}!`);
-}
-(0, prompts_1.outro)('to are all set');
+commander_1.program.parse();
+(0, prompts_1.outro)('you are all set');
