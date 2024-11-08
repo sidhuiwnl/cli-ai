@@ -7,4 +7,3 @@ export default async function generateCommitMessage(commits: string) {
 
   return result.response.text();
 }
-
