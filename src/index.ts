@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { intro, outro, confirm } from "@clack/prompts";
+import { intro, outro, confirm, text } from "@clack/prompts";
 import { green, red, yellow } from "kolorist";
 import { program } from "commander";
 import { execa } from "execa";
@@ -47,6 +47,8 @@ program
 
       const commitMessage = await generateCommitMessage(formattedDiff);
 
+      console.log(commitMessage)
+
       const response = await confirm({
         message: "Would you like to use this generated commit message?",
       });
@@ -55,7 +57,7 @@ program
         await execa("git", ["commit", "-m", commitMessage]);
         console.log(`Changes committed with message: "${commitMessage}"`);
 
-        const { stdout : lastCommitInfo }  = await execa("git",["log","-1","--stat","--online"]);
+        const { stdout : lastCommitInfo }  = await execa("git",["log","-1","--stat","--oneline"]);
         console.log(lastCommitInfo)
         outro(green(`You're all set!`));
       }
