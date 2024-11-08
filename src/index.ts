@@ -7,6 +7,9 @@ import generateCommitMessage from "../lib/msggenerator.js";
 
 
 intro(green(`Welcome to cli ai`));
+
+
+
 program
   .command("message")
   .description("to view the all the changes in the project")
