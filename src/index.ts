@@ -47,7 +47,7 @@ program
 
       const commitMessage = await generateCommitMessage(formattedDiff);
 
-      console.log(commitMessage)
+      console.log(commitMessage);
 
       const response = await confirm({
         message: "Would you like to use this generated commit message?",
@@ -57,8 +57,15 @@ program
         await execa("git", ["commit", "-m", commitMessage]);
         console.log(`Changes committed with message: "${commitMessage}"`);
 
-        const { stdout : lastCommitInfo }  = await execa("git",["log","-1","--stat","--oneline"]);
-        console.log(lastCommitInfo)
+        const { stdout: lastCommitInfo } = await execa("git", [
+          "log",
+          "-1",
+          "--stat",
+          "--oneline",
+        ]);
+        console.log(lastCommitInfo);
+
+        await execa("git", ["push"]);
         outro(green(`You're all set!`));
       }
     } catch (error) {
