@@ -16,6 +16,9 @@ program.command("message")
     .action(async() =>{
       const  { stdout } = await execa('git',['diff']);
 
+      if(!stdout){
+        console.log("nothing to commit")
+      }
       if(stdout){
         const lines = stdout.split('\n').map((line) =>{
           if(line.startsWith('---') || line.startsWith('-')){
