@@ -55,7 +55,9 @@ program
         await execa("git", ["commit", "-m", commitMessage]);
         console.log(`Changes committed with message: "${commitMessage}"`);
 
-        outro(`You're all set!`);
+        const { stdout : lastCommitInfo }  = await execa("git",["log","-1","--stat","--online"]);
+        console.log(lastCommitInfo)
+        outro(green(`You're all set!`));
       }
     } catch (error) {
       console.error(red("Error executing command:"), error);
