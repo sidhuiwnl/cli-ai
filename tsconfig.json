@@ -1,20 +1,21 @@
 {
+  
+  "display": "Node LTS (22)",
+  "_version": "22.0.0",
   "compilerOptions": {
-    "target": "ESNext",                                  
-    "module": "ESNext",                                
-    "moduleResolution": "node",                         /* This is needed for better module resolution when using Node.js */
-    "rootDir": "./src",                                 
-    "outDir": "./dist",                                  
-    "esModuleInterop": true,                            
-    "forceConsistentCasingInFileNames": true,           
-    "strict": true,                                    
-    "skipLibCheck": true,                               /* Skip type checking of declaration files */
-    "resolveJsonModule": true,                          /* Allow importing .json files */
-    "allowSyntheticDefaultImports": true,                /* Allow default imports from CommonJS modules */
-    "declaration": true,                                /* Emit declaration files (.d.ts) */
-    "declarationMap": true,                             /* Create source maps for declaration files */
-    "sourceMap": true,                                  /* Create source maps for emitted JavaScript */
-    "lib": ["ESNext", "DOM"],                           /* Use modern libraries (like ESNext and DOM) */
-    "noEmitOnError": true                               /* Don't emit files if there are type errors */
-  }
+    "lib": [
+      "es2023"
+    ],
+    "module": "node16",
+    "target": "es2022",
+    "noUncheckedIndexedAccess" : true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "outDir" : "dist",
+  },
+  "include" : [
+    "src"
+  ]
 }

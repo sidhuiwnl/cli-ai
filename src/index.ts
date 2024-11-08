@@ -1,23 +1,38 @@
-import { red,green } from "kolorist";
+#!/usr/bin/env node
 
-import { intro,outro } from "@clack/prompts";
+import { green, red } from "kolorist";
 import { program } from "commander";
-
 import  { execa } from "execa"
+import generateCommitMessage from "../lib/msggenerator.js";
 
 
 
-program
-    .option('--first')
-    .option('-s,--seperator  <char>');
+
+  
 
 
 program.command("message")
     .description("to view the all the changes in the project")
     .action(async() =>{
       const  { stdout } = await execa('git',['diff']);
+
+      if(stdout){
+        const lines = stdout.split('\n').map((line) =>{
+          if(line.startsWith('---') || line.startsWith('-')){
+            return red(line)
+          }else if(line.startsWith('+++') || line.startsWith('+')){
+            return green(line)
+          }else{
+            return line
+          }
+        }).join('\n')
+
+        
+        const commitMessage = await generateCommitMessage(lines);
+
+        console.log(commitMessage)
+      }
       
     })
 program.parse();
-
 

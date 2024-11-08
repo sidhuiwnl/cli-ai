@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "cli-ai": "node dist/index.js"
+    "dev": "tsc -w"
   },
   "bin": {
-    "cli-ai": "./dist/index.js"
+    "cli-ai": "./dist/src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -15,12 +18,14 @@
   "description": "",
   "dependencies": {
     "@clack/prompts": "^0.7.0",
+    "@google/generative-ai": "^0.21.0",
     "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
     "execa": "^9.5.1",
-    "kolorist": "^1.8.0",
-    "tsx": "^4.19.2"
+    "kolorist": "^1.8.0"
   },
   "devDependencies": {
-    "@types/node": "^22.9.0"
+    "@types/node": "^22.9.0",
+    "tsx": "^4.19.2"
   }
 }
