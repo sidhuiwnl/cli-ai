@@ -1,13 +1,16 @@
 #!/usr/bin/env node
-
+import { intro,outro } from "@clack/prompts";
 import { green, red,yellow } from "kolorist";
 import { program } from "commander";
 import { execa } from "execa";
 import generateCommitMessage from "../lib/msggenerator.js";
 
+
+intro(green(`Welcome to cli ai`));
 program
   .command("message")
   .description("to view the all the changes in the project")
+  
   .action(async () => {
 
     try {
@@ -45,11 +48,14 @@ program
       await execa("git", ["commit", "-m", commitMessage]);
       console.log(green(`Changes committed with message: "${commitMessage}"`));
 
+      outro(`You're all set!`);
+
     } catch (error) {
       console.error(red("Error executing command:"), error);
     }
   });
   
-
+  
 
 program.parse();
+
