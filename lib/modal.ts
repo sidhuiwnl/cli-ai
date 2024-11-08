@@ -10,7 +10,7 @@ export const modal = genAI.getGenerativeModel({
         candidateCount : 1,
         stopSequences : ["x"],
         maxOutputTokens : 50,
-        temperature : 0.7,
+        temperature : 1.0,
     }
 })
 
